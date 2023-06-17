@@ -24,7 +24,6 @@ const RecipeDetailDialog: React.FC<RecipeDetailDialogProps> = ({ recipe, onDismi
                     {recipe.text}
                 </Modal.Body>
                 <Modal.Footer>
-                    ··
                     <Button variant="secondary" onClick={onDismiss}>Close</Button>
                     <Button variant="primary" onClick={onEdit}>Edit</Button>
                     <Button variant="danger" onClick={() => setShowConfirmDelete(true)}>Delete</Button>
