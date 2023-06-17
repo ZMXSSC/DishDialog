@@ -36,4 +36,4 @@ If you want to contact me, you can reach me at `alozochu4@gmail.com`.
 
 ## License
 
-This project uses the following license: `MIT licensed.`.
+This project uses the following license: `MIT licensed`.
