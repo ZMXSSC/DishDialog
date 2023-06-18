@@ -17,3 +17,9 @@ mongoose.connect(env.MONGO_CONNECTION_STRING)
     })
     .catch(console.error);
 
+export const getDbConnection = () => {
+    if (mongoose.connection.readyState === 1) {
+        return mongoose.connection.db;
+    }
+    throw new Error('Database connection is not ready');
+};
