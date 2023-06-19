@@ -4,6 +4,7 @@ export interface Recipe {
     _id: string,
     title: string,
     text?: string,
+    image?: File,
     createdAt: string,
     updatedAt: string
 }

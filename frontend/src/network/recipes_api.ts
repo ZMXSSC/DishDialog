@@ -28,22 +28,35 @@ export async function fetchRecipes(): Promise<Recipe[]> {
 export interface RecipeInput {
     title: string,
     text?: string,
+    image?: File,
 }
 
-export async function createRecipe(recipe: RecipeInput): Promise<Recipe> {
-    const response = await fetchData("/api/recipes",
-        {
-            method: "POST",
-            //Since we are making a POST request, IT'S IMPORTANT TO SPECIFY headers and body(No need for GET)
-            //headers to indicate what kind of data we are sending
-            headers: {
-                "Content-Type": "application/json",
-            },
-            //pass the body
-            body: JSON.stringify(recipe),
-        });
+// export async function createRecipe(recipe: RecipeInput): Promise<Recipe> {
+//     const response = await fetchData("/api/recipes",
+//         {
+//             method: "POST",
+//             //Since we are making a POST request, IT'S IMPORTANT TO SPECIFY headers and body(No need for GET)
+//             //headers to indicate what kind of data we are sending
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             //pass the body
+//             body: JSON.stringify(recipe),
+//         });
+//     return response.json();
+// }
+export async function createRecipe(recipe: FormData): Promise<Recipe> {
+    const requestOptions: RequestInit = {
+        method: "POST",
+        body: recipe
+        //For formData, we don't need to specify headers, because it will be automatically set
+        //by the browser
+    };
+
+    const response = await fetchData("/api/recipes", requestOptions);
     return response.json();
 }
+
 
 export async function getLoggedInUser(): Promise<User> {
     const response = await fetchData("/api/users", {method: "GET"});
@@ -89,15 +102,27 @@ export async function logout() {
     await fetchData("/api/users/logout", {method: "POST"});
 }
 
-export async function updateRecipe(recipeId: string, recipe: RecipeInput): Promise<Recipe> {
-    const response = await fetchData("/api/recipes/" + recipeId,
-        {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(recipe),
-        });
+// export async function updateRecipe(recipeId: string, recipe: RecipeInput | FormData): Promise<Recipe> {
+//
+//     const response = await fetchData("/api/recipes/" + recipeId,
+//         {
+//             method: "PATCH",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify(recipe),
+//         });
+//     return response.json();
+// }
+
+export async function updateRecipe(recipeId: string, recipe: FormData): Promise<Recipe> {
+    const requestOptions: RequestInit = {
+        method: "PATCH",
+        body: recipe
+        //Again, we don't need to specify headers for formData, because it will be automatically set
+        //by the browser
+    }
+    const response = await fetchData("/api/recipes/" + recipeId, requestOptions);
     return response.json();
 }
 

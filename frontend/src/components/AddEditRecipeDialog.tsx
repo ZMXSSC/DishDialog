@@ -4,6 +4,8 @@ import {Recipe} from "../models/recipe";
 import {RecipeInput} from "../network/recipes_api";
 import * as RecipesApi from "../network/recipes_api"
 import TextInputField from "./form/TextInputField";
+import FileInputField from "./form/FileInputField";
+import {useState} from "react";
 
 interface AddEditRecipeDialogProps {
     recipeToEdit?: Recipe,
@@ -29,21 +31,32 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
         }
     });
 
+    //file is the file that the user select from the file dialog
+    const [file, setFile] = useState<File | undefined>();
+
     async function Sub(input: RecipeInput) {
         try {
             let recipeResponse: Recipe;
+            const formData = new FormData();
+            formData.append("title", input.title);
+            formData.append("text", input.text || "");
+            if (file) {
+                formData.append("image", file);
+            }
             if (recipeToEdit) {
-                recipeResponse = await RecipesApi.updateRecipe(recipeToEdit._id, input);
+                //If we are editing an existing recipe
+                recipeResponse = await RecipesApi.updateRecipe(recipeToEdit._id, formData);
             } else {
-                recipeResponse = await RecipesApi.createRecipe(input);
+                //If we are creating a new recipe
+                recipeResponse = await RecipesApi.createRecipe(formData);
             }
             onRecipeSaved(recipeResponse);
-
         } catch (error) {
             console.error(error);
             alert(error);
         }
     }
+
 
     return (
         //When the onHide event is triggered (for example, when you click outside the modal or press the escape key),
@@ -60,7 +73,7 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
                 {/*When we call handleSubmit(Sub), we find the input from Sub is missing, right? */}
                 {/*It actually handled by ...register when we call handleSubmit, basically they will collect all*/}
                 {/*the input's value and automatically pass to Sub. The react-hook-form library done everything for us.*/}
-                <Form id="addEditRecipeForm" onSubmit={handleSubmit(Sub)}>
+                <Form id="addEditRecipeForm" onSubmit={handleSubmit(Sub)} encType="multipart/form-data">
                     <TextInputField
                         rows={2}
                         name="title"
@@ -84,6 +97,12 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
                         placeholder="Text"
                         //The end of "other" properties in [x: string]: any
                         register={register}
+                    />
+
+                    <FileInputField
+                        name="image"
+                        label="Upload Image"
+                        setFile={setFile}
                     />
 
                 </Form>
