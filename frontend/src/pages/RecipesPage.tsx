@@ -13,7 +13,7 @@ const RecipesPage = ({loggedInUser}: RecipesPageProps) => {
         <Container className={styles.recipesPage}>
             <>
                 {loggedInUser
-                    ? <RecipesPageLoggedInView/>
+                    ? <RecipesPageLoggedInView loggedInUser={loggedInUser}/>
                     : <RecipesPageLoggedOutView/>
                 }
             </>

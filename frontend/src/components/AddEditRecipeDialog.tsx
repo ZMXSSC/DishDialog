@@ -101,7 +101,7 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
 
                     <FileInputField
                         name="image"
-                        label="Upload Image"
+                        label="Upload Image(Lmit: 5MB)"
                         setFile={setFile}
                     />
 

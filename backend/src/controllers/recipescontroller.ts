@@ -304,8 +304,15 @@ export const getRecipeImage: RequestHandler = async (req: Request, res: Response
             throw createHttpError(404, "The recipe you are looking for doesn't exist");
         }
 
+        // Check if the recipe has an associated image
+        if (!recipe.imageName) {
+            // Send a response or default image
+            res.status(404).send("No image found for this recipe");
+            return;
+        }
+
         // Retrieve the image file from GridFS using the recipe's imageName field
-        const imageName = recipe.imageName ?? ''; // Provide a default value if imageName is undefined
+        const imageName = recipe.imageName;
         const imageStream = bucket.openDownloadStreamByName(imageName);
 
         // Set the appropriate Content-Type header based on the image file type

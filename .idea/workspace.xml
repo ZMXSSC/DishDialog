@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8cc6250f-4008-4de3-904e-4cf002c08220" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DishDialog.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/recipescontroller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/recipescontroller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AddEditRecipeDialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AddEditRecipeDialog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/NavBarLoggedInView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/NavBarLoggedInView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Recipe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Recipe.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Recipe.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Recipe.module.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="CSS File" />
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectId" id="2QgbyuZZ1WV9f9ifjaYxplQJXzS" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/sunnychu/Desktop/WebStormProjects/DishDialog&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/sunnychu/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/231.9011.35/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.rcb.reactComponents" value="false" />
+        <entry key="com.haulmont.rcb.reactInspector" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/components/form" />
+      <recent name="$PROJECT_DIR$/frontend/src/styles" />
+      <recent name="$PROJECT_DIR$/frontend/src" />
+      <recent name="$PROJECT_DIR$/frontend/src/style" />
+      <recent name="$PROJECT_DIR$/backend" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8cc6250f-4008-4de3-904e-4cf002c08220" name="Changes" comment="" />
+      <created>1685778431324</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685778431324</updated>
+      <workItem from="1685778432307" duration="1438000" />
+      <workItem from="1685780717171" duration="4890000" />
+      <workItem from="1685788563473" duration="1995000" />
+      <workItem from="1685858689078" duration="10960000" />
+      <workItem from="1685935253613" duration="8214000" />
+      <workItem from="1686037958128" duration="26196000" />
+      <workItem from="1686214896026" duration="2253000" />
+      <workItem from="1686223685482" duration="13250000" />
+      <workItem from="1686283144969" duration="3893000" />
+      <workItem from="1686289159067" duration="2330000" />
+      <workItem from="1686299572090" duration="3753000" />
+      <workItem from="1686303420441" duration="11097000" />
+      <workItem from="1686396562754" duration="5636000" />
+      <workItem from="1686455383453" duration="1463000" />
+      <workItem from="1686476040518" duration="723000" />
+      <workItem from="1686479760858" duration="22043000" />
+      <workItem from="1686582861798" duration="598000" />
+      <workItem from="1686656961844" duration="9328000" />
+      <workItem from="1686730130119" duration="5364000" />
+      <workItem from="1686745766399" duration="27099000" />
+      <workItem from="1686908041353" duration="3506000" />
+      <workItem from="1686913468136" duration="519000" />
+      <workItem from="1686914049069" duration="656000" />
+      <workItem from="1686914718853" duration="265000" />
+      <workItem from="1686915310411" duration="14832000" />
+      <workItem from="1686989563096" duration="2253000" />
+      <workItem from="1686992732947" duration="2306000" />
+      <workItem from="1687004788263" duration="546000" />
+      <workItem from="1687099450336" duration="78000" />
+      <workItem from="1687108536689" duration="301000" />
+      <workItem from="1687190121461" duration="10173000" />
+      <workItem from="1687204571058" duration="868000" />
+      <workItem from="1687205489470" duration="140000" />
+      <workItem from="1687205631693" duration="25000" />
+      <workItem from="1687205668364" duration="38000" />
+      <workItem from="1687205724178" duration="41000" />
+      <workItem from="1687205779187" duration="66000" />
+      <workItem from="1687205870638" duration="49000" />
+      <workItem from="1687205944279" duration="26000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

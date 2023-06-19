@@ -1,5 +1,9 @@
 .recipeCard {
     background-color: #d5eef1;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .cardBody {
@@ -19,5 +23,43 @@
 }
 
 .title {
-    display: inline-block; /* Ensure the border respects the width of the title */
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    width: 100%;
+}
+
+
+.imageStyle {
+    height: 82%;
+    width: 100%;
+    max-height: calc(100% - 40px); /* Adjust the value to leave space for other elements within the card */
+    object-fit: cover;
+    aspect-ratio: 4/3; /* Enforce a 4:3 aspect ratio */
+}
+
+
+.cardBody {
+    height: 18%;
+}
+
+.timestamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.modal90w {
+    max-width: 90% !important;
+}
+
+.textBody {
+    max-height: 500px;
+    overflow-y: auto;
 }

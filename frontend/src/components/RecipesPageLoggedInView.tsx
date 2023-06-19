@@ -7,8 +7,13 @@ import React, {useEffect, useState} from "react";
 import {Recipe as RecipeModel} from "../models/recipe";
 import * as RecipesApi from "../network/recipes_api";
 import Recipe from "./Recipe";
+import {User} from "../models/user";
 
-const RecipesPageLoggedInView = () => {
+interface RecipesPageLoggedInViewProps {
+    loggedInUser: User;
+}
+
+const RecipesPageLoggedInView = ({loggedInUser}: RecipesPageLoggedInViewProps) => {
 
     //Recipe[] means an array of Recipe objects, Setting up state that's going to be an array of Recipe objects
     const [recipes, setRecipes] = useState<RecipeModel[]>([]);
@@ -43,6 +48,7 @@ const RecipesPageLoggedInView = () => {
                 setRecipesLoading(false);
             }
         }
+
         //Call the loadRecipes() function
         loadRecipes();
         //Need to put [] as it will only run exactly one time, rather than everytime the React renders
@@ -69,10 +75,12 @@ const RecipesPageLoggedInView = () => {
             {recipes.map(recipe => (
                 // Col is used to add gap horizontally among recipes
                 <Col key={recipe._id}>
-                    <Recipe recipe={recipe}
-                            className={styles.recipe}
-                            onRecipeClicked={(recipe) => setRecipeToEdit(recipe)}
-                            onDeleteRecipeClicked={(recipe) => deleteRecipe(recipe)}
+                    <Recipe
+                        loggedInUser={loggedInUser}
+                        recipe={recipe}
+                        className={styles.recipe}
+                        onRecipeClicked={(recipe) => setRecipeToEdit(recipe)}
+                        onDeleteRecipeClicked={(recipe) => deleteRecipe(recipe)}
                     />
                 </Col>
             ))}
@@ -89,14 +97,22 @@ const RecipesPageLoggedInView = () => {
                 <FaPlus/>
                 Add new recipe
             </Button>
-            {/*If the recipe is loading, we display a spinner*/}
-            {recipesLoading && <Spinner animation='border' variant='primary'/>}
-            {/*If there's error loading the recipe, we display an error message to the user*/}
-            {showRecipesLoadingError &&
-                <p className={styles.errorMessage}>Something went wrong. Please refresh the page.</p>}
+            {/*If the recipe is loading, we display a spinner*/
+            }
+            {
+                recipesLoading && <Spinner animation='border' variant='primary'/>
+            }
+            {/*If there's error loading the recipe, we display an error message to the user*/
+            }
+            {
+                showRecipesLoadingError &&
+                <p className={styles.errorMessage}>Something went wrong. Please refresh the page.</p>
+            }
             {/*If recipe is not loading nor getting any error, then we display recipes(or if there's no recipe, remind
-            user that there's no recipe*/}
-            {!recipesLoading && !showRecipesLoadingError &&
+            user that there's no recipe*/
+            }
+            {
+                !recipesLoading && !showRecipesLoadingError &&
                 <>
                     {
                         recipes.length > 0
@@ -106,8 +122,10 @@ const RecipesPageLoggedInView = () => {
                 </>
             }
             {/*the && indicates that if showAddRecipeDialog is true(check above Button code that set it to true)
-            ,the subsequent step will be taken, no otherwise*/}
-            {showAddRecipeDialog &&
+            ,the subsequent step will be taken, no otherwise*/
+            }
+            {
+                showAddRecipeDialog &&
                 //If the modal window does show up, we can set to false, so then we can close the window
                 <AddEditRecipeDialog
                     onDismiss={() => setShowAddRecipeDialog(false)}
@@ -118,7 +136,8 @@ const RecipesPageLoggedInView = () => {
                     }}
                 />
             }
-            {recipeToEdit &&
+            {
+                recipeToEdit &&
                 <AddEditRecipeDialog
                     recipeToEdit={recipeToEdit}
                     onDismiss={() => setRecipeToEdit(null)}
@@ -131,7 +150,8 @@ const RecipesPageLoggedInView = () => {
 
             }
         </>
-    );
+    )
+        ;
 }
 
 export default RecipesPageLoggedInView;
