@@ -37,6 +37,8 @@ const Recipe = ({loggedInUser, recipe, onRecipeClicked, onDeleteRecipeClicked, c
     } = recipe;
 
     let createdUpdatedText: string;
+    const createdAtDate = "Created: " + formatDate(createdAt);
+    const updatedAtDate = "Updated: " + formatDate(updatedAt);
     if (updatedAt > createdAt) {
         createdUpdatedText = "Updated: " + formatDate(updatedAt);
     } else {
@@ -126,6 +128,8 @@ const Recipe = ({loggedInUser, recipe, onRecipeClicked, onDeleteRecipeClicked, c
                         onDeleteRecipeClicked(RecipeNoImgDetail);
                         setRecipeNoImgDetail(null);
                     }}
+                    createdAtString={createdAtDate}
+                    updatedAtString={updatedAtDate}
                 />
             }
 
@@ -141,6 +145,8 @@ const Recipe = ({loggedInUser, recipe, onRecipeClicked, onDeleteRecipeClicked, c
                         onDeleteRecipeClicked(RecipeImgDetail);
                         setRecipeImgDetail(null);
                     }}
+                    createdAtString={createdAtDate}
+                    updatedAtString={updatedAtDate}
                 />
             }
             {/*THIRD element*/}

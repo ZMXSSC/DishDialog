@@ -5,6 +5,7 @@ export interface Recipe {
     title: string,
     text?: string,
     image?: File,
+    imageDesc?: string,
     createdAt: string,
     updatedAt: string
 }

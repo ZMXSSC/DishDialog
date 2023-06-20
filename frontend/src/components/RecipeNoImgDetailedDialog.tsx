@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import { Recipe as RecipeModel } from "../models/recipe";
+import React, {useState} from 'react';
+import {Modal, Button} from 'react-bootstrap';
+import {Recipe as RecipeModel} from "../models/recipe";
 import styles from "../styles/Recipe.module.css";
 import ConfirmationDialog from "./ConfirmationDialog"
 
@@ -9,9 +9,18 @@ interface RecipeDetailDialogProps {
     onDismiss: () => void,
     onEdit: () => void,
     onDelete: () => void
+    createdAtString: string,
+    updatedAtString: string,
 }
 
-const RecipeNoImaDetailDialog: React.FC<RecipeDetailDialogProps> = ({ recipe, onDismiss, onEdit, onDelete }) => {
+const RecipeNoImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
+                                                                        recipe,
+                                                                        onDismiss,
+                                                                        onEdit,
+                                                                        onDelete,
+                                                                        createdAtString,
+                                                                        updatedAtString
+                                                                    }) => {
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
     return (
@@ -21,9 +30,14 @@ const RecipeNoImaDetailDialog: React.FC<RecipeDetailDialogProps> = ({ recipe, on
                     <Modal.Title>{recipe.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className={`${styles.cardText} ${styles.textBody}`}>
-                    {recipe.text}
+                    <div style={{fontSize: '25px'}}>{recipe.text}</div>
                 </Modal.Body>
                 <Modal.Footer>
+                    <p style={{padding: '10px', whiteSpace: 'pre-wrap'}}>
+                        {createdAtString}
+                        <br/>
+                        {updatedAtString}
+                    </p>
                     <Button variant="secondary" onClick={onDismiss}>Close</Button>
                     <Button variant="primary" onClick={onEdit}>Edit</Button>
                     <Button variant="danger" onClick={() => setShowConfirmDelete(true)}>Delete</Button>
@@ -43,4 +57,4 @@ const RecipeNoImaDetailDialog: React.FC<RecipeDetailDialogProps> = ({ recipe, on
     );
 }
 
-export default RecipeNoImaDetailDialog;
+export default RecipeNoImgDetailDialog;

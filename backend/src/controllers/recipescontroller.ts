@@ -9,10 +9,8 @@ import crypto from "crypto";
 import path from "path"
 import env from "../util/validateEnv"
 import {Request} from "express";
-import {ParamsDictionary} from "express-serve-static-core";
 import {Response, NextFunction} from 'express';
-import {Types} from 'mongoose';
-import {GridFSBucket, ObjectId} from 'mongodb';
+import {GridFSBucket} from 'mongodb';
 import {getDbConnection} from '../server';
 
 //To create endpoints, the best practice is to define the callback functions first in recipescontroller.ts
@@ -130,7 +128,8 @@ export const getRecipe: RequestHandler = async (req, res, next) => {
 interface CreateRecipeBody {
     title?: string,
     text?: string,
-    imageName?: string
+    imageName?: string,
+    imageDesc?: string
 }
 
 //We need to specify the type for request.body! That will be the third argument in the RequestHandler function signature
@@ -142,6 +141,7 @@ export const createRecipe = async (req: CreateRecipeRequest, res: Response, next
 
     const title = req.body.title;
     const text = req.body.text;
+    const imageDesc = req.body.imageDesc;
     // const { title, text } = req.body;
     const authenticatedUserId = req.session.userId;
 
@@ -159,6 +159,7 @@ export const createRecipe = async (req: CreateRecipeRequest, res: Response, next
             title: title,
             text: text,
             imageName: req.file?.filename, // The filename of the uploaded image
+            imageDesc: imageDesc
             //timestamp will be created automatically
         });
         //201 indicates HTTP code for a new resource created can also use 200(ok)
@@ -177,6 +178,7 @@ interface UpdateRecipeBody {
     title?: string,
     text?: string,
     imageName?: string,
+    imageDesc?: string
 }
 
 //We need to specify the type for request.body! That will be the third argument in the RequestHandler function signature
@@ -189,6 +191,7 @@ export const updateRecipe = async (req: UpdateRecipeRequest, res: Response, next
     const recipeId = req.params.recipeId;
     const newTitle = req.body.title;
     const newText = req.body.text;
+    const newImageDesc = req.body.imageDesc;
     const authenticatedUserId = req.session.userId;
 
     try {
@@ -218,6 +221,7 @@ export const updateRecipe = async (req: UpdateRecipeRequest, res: Response, next
 
         recipe.title = newTitle;
         recipe.text = newText;
+        recipe.imageDesc = newImageDesc;
         // Check if a new image file is provided
         if (req.file) {
             // Delete the old image file if it exists

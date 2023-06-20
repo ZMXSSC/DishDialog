@@ -28,6 +28,7 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
         defaultValues: {
             title: recipeToEdit?.title || "",
             text: recipeToEdit?.text || "",
+            imageDesc: recipeToEdit?.imageDesc || ""
         }
     });
 
@@ -43,6 +44,7 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
             if (file) {
                 formData.append("image", file);
             }
+            formData.append("imageDesc", input.imageDesc || "");
             if (recipeToEdit) {
                 //If we are editing an existing recipe
                 recipeResponse = await RecipesApi.updateRecipe(recipeToEdit._id, formData);
@@ -93,7 +95,6 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
                         label="Text"
                         //The beginning of "other" properties in [x: string]: any
                         as="textarea"
-                        row={5}
                         placeholder="Text"
                         //The end of "other" properties in [x: string]: any
                         register={register}
@@ -103,6 +104,17 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
                         name="image"
                         label="Upload Image(Lmit: 5MB)"
                         setFile={setFile}
+                    />
+
+                    <TextInputField
+                        rows={2}
+                        name="imageDesc"
+                        label="Image Description"
+                        //The beginning of "other" properties in [x: string]: any
+                        as="textarea"
+                        placeholder="Image Description"
+                        //The end of "other" properties in [x: string]: any
+                        register={register}
                     />
 
                 </Form>

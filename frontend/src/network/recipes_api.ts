@@ -29,6 +29,7 @@ export interface RecipeInput {
     title: string,
     text?: string,
     image?: File,
+    imageDesc?: string,
 }
 
 // export async function createRecipe(recipe: RecipeInput): Promise<Recipe> {
