@@ -10,6 +10,7 @@ import {Container} from "react-bootstrap";
 import CommunityPage from "./pages/CommunityPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import styles from "./styles/App.module.css"
+import DiscoverPage from "./pages/DiscoverPage";
 
 
 function App() {
@@ -53,6 +54,10 @@ function App() {
                         <Route
                             path='/community'
                             element={<CommunityPage/>}
+                        />
+                        <Route
+                            path='/discover'
+                            element={<DiscoverPage/>}
                         />
                         <Route
                             path='/*'

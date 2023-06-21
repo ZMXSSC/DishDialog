@@ -34,6 +34,9 @@ const NavigationBar = ({loggedInUser, onSignUpClicked, onLoginClicked, onLogoutS
                         <Nav.Link as={Link} to="/community" className={style.pageName}>
                             Community
                         </Nav.Link>
+                        <Nav.Link as={Link} to="/discover" className={style.pageName}>
+                            Discover
+                        </Nav.Link>
                     </Nav>
                     <Nav className="ms-auto">
                         {loggedInUser

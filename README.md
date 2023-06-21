@@ -41,6 +41,15 @@ To run the project, follow these steps:
 
 If you want to contact me, you can reach me at `alozochu4@gmail.com`.
 
+## Pending features
+1. Add a search bar to search for recipes.
+2. Add a feature to for users to share their recipes to the community page.
+3. Add a map to show where the recipe is from.
+4. Add a feature to allow users to like and comment on recipes.
+5. ...more to come!
+
 ## License
 
 This project uses the following license: `MIT licensed`.
+
+
