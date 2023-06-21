@@ -7,19 +7,20 @@ import ConfirmationDialog from "./ConfirmationDialog"
 interface RecipeDetailDialogProps {
     recipe: RecipeModel,
     onDismiss: () => void,
-    onEdit: () => void,
-    onDelete: () => void,
+    onEdit?: () => void,
+    onDelete?: () => void
     createdAtString: string,
     updatedAtString: string,
+    isPublic?: boolean
 }
 
 const RecipeImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
-                                                                        recipe,
-                                                                        onDismiss,
-                                                                        onEdit,
-                                                                        onDelete,
-                                                                        createdAtString, updatedAtString
-                                                                    }) => {
+                                                                      recipe,
+                                                                      onDismiss,
+                                                                      onEdit,
+                                                                      onDelete,
+                                                                      createdAtString, updatedAtString, isPublic
+                                                                  }) => {
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
     return (
@@ -48,20 +49,29 @@ const RecipeImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
                         {updatedAtString}
                     </p>
                     <Button variant="secondary" onClick={onDismiss}>Close</Button>
-                    <Button variant="primary" onClick={onEdit}>Edit</Button>
-                    <Button variant="danger" onClick={() => setShowConfirmDelete(true)}>Delete</Button>
+                    {!isPublic &&
+                        <>
+                            <Button variant="primary" onClick={onEdit}>Edit</Button>
+                            <Button variant="danger" onClick={() => setShowConfirmDelete(true)}>Delete</Button>
+                        </>
+                    }
                 </Modal.Footer>
             </Modal>
-            <ConfirmationDialog
-                show={showConfirmDelete}
-                title="Confirm Delete"
-                message="Are you sure you want to delete this recipe?"
-                onConfirm={() => {
-                    onDelete();
-                    setShowConfirmDelete(false);
-                }}
-                onCancel={() => setShowConfirmDelete(false)}
-            />
+            {!isPublic &&
+                <ConfirmationDialog
+                    show={showConfirmDelete}
+                    title="Confirm Delete"
+                    message="Are you sure you want to delete this recipe?"
+                    onConfirm={() => {
+                        if (onDelete) {
+                            onDelete();
+                        }
+                        setShowConfirmDelete(false);
+                    }}
+                    onCancel={() => setShowConfirmDelete(false)}
+                />
+            }
+
         </div>
     );
 }

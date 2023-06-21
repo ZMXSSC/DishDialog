@@ -25,11 +25,19 @@ export async function fetchRecipes(): Promise<Recipe[]> {
     return response.json();
 }
 
+export async function fetchPublicRecipes(): Promise<Recipe[]> {
+    const response = await fetchData("/api/public-recipes", {method: "GET"});
+    return response.json();
+}
+
+
 export interface RecipeInput {
+    author: string,
     title: string,
     text?: string,
+    isPublic?: string,
     image?: File,
-    imageDesc?: string,
+    imageDesc?: string
 }
 
 // export async function createRecipe(recipe: RecipeInput): Promise<Recipe> {

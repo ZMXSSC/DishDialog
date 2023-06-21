@@ -77,7 +77,6 @@ const RecipesPageLoggedInView = ({loggedInUser}: RecipesPageLoggedInViewProps) =
                 // Col is used to add gap horizontally among recipes
                 <Col key={recipe._id}>
                     <Recipe
-                        loggedInUser={loggedInUser}
                         recipe={recipe}
                         className={styles.recipe}
                         onRecipeClicked={(recipe) => setRecipeToEdit(recipe)}
@@ -129,6 +128,7 @@ const RecipesPageLoggedInView = ({loggedInUser}: RecipesPageLoggedInViewProps) =
                 showAddRecipeDialog &&
                 //If the modal window does show up, we can set to false, so then we can close the window
                 <AddEditRecipeDialog
+                    loggedInUser={loggedInUser}
                     onDismiss={() => setShowAddRecipeDialog(false)}
                     onRecipeSaved={(newRecipe) => {
                         //Creates a new array with all the existing recipe, and it also adds the new recipe

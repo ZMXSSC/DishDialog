@@ -1,25 +1,20 @@
-import {Recipe as RecipeModel} from "../models/recipe"
+import {Recipe as RecipeModel} from "../../models/recipe"
 import {Card} from 'react-bootstrap'
-import styles from "../styles/Recipe.module.css"
-import styleUtils from "../styles/utils.module.css"
-import {formatDate} from "../utils/formatDate";
-import {MdDelete} from "react-icons/md";
+import styles from "../../styles/Recipe.module.css"
+import styleUtils from "../../styles/utils.module.css"
+import {formatDate} from "../../utils/formatDate";
 import {useState} from "react";
 
-import ConfirmationDialog from './ConfirmationDialog';
-import RecipeNoImgDetailDialog from "./RecipeNoImgDetailedDialog";
-import RecipeImgDetailDialog from "./RecipeImgDetailedDialog";
+import RecipeNoImgDetailDialog from "../RecipeNoImgDetailedDialog";
+import RecipeImgDetailDialog from "../RecipeImgDetailedDialog";
 
-interface RecipeProps {
+interface PublicRecipeProps {
     recipe: RecipeModel,
-    onRecipeClicked: (recipe: RecipeModel) => void,
-    onDeleteRecipeClicked: (recipe: RecipeModel) => void,
     className?: string,
 }
 
-const Recipe = ({recipe, onRecipeClicked, onDeleteRecipeClicked, className}: RecipeProps) => {
+const PublicRecipe = ({recipe, className}: PublicRecipeProps) => {
 
-    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [RecipeNoImgDetail, setRecipeNoImgDetail] = useState<RecipeModel | null>(null);
     const [RecipeImgDetail, setRecipeImgDetail] = useState<RecipeModel | null>(null);
     const [hasImage, setHasImage] = useState(true);  // New state for checking if image exists
@@ -65,20 +60,6 @@ const Recipe = ({recipe, onRecipeClicked, onDeleteRecipeClicked, className}: Rec
                             {author}
                             </span>
                         {createdUpdatedText}
-                        <MdDelete
-                            //The ms-auto class applies automatic margin to the left of the icon,
-                            //pushing it to the far right of the flex container (Card.Title).
-                            className="text-muted float-end"
-                            onClick={(e) => {
-                                // onDeleteRecipeClicked(recipe);
-                                //This is to prevent the event from bubbling up to parent components and
-                                //inadvertently triggering the onRecipeClicked event which is associated with the whole recipe card.
-                                //If we don't stop propagation, the onRecipeClicked will also trigger
-                                e.stopPropagation();
-                                // e.preventDefault();
-                                setShowConfirmDelete(true);
-                            }}
-                        />
                     </Card.Footer>
                 </Card>
 
@@ -94,13 +75,6 @@ const Recipe = ({recipe, onRecipeClicked, onDeleteRecipeClicked, className}: Rec
                                     {title}
                                 </span>
                             </div>
-                            <MdDelete
-                                className="text-muted ms-auto"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setShowConfirmDelete(true);
-                                }}
-                            />
                         </Card.Title>
                         <Card.Text className={styles.cardText}>
                             {text}
@@ -117,16 +91,9 @@ const Recipe = ({recipe, onRecipeClicked, onDeleteRecipeClicked, className}: Rec
 
             {RecipeNoImgDetail &&
                 <RecipeNoImgDetailDialog
+                    isPublic={true}
                     recipe={RecipeNoImgDetail}
                     onDismiss={() => setRecipeNoImgDetail(null)}
-                    onEdit={() => {
-                        onRecipeClicked(RecipeNoImgDetail);
-                        setRecipeNoImgDetail(null);
-                    }}
-                    onDelete={() => {
-                        onDeleteRecipeClicked(RecipeNoImgDetail);
-                        setRecipeNoImgDetail(null);
-                    }}
                     createdAtString={createdAtDate}
                     updatedAtString={updatedAtDate}
                 />
@@ -134,36 +101,17 @@ const Recipe = ({recipe, onRecipeClicked, onDeleteRecipeClicked, className}: Rec
 
             {RecipeImgDetail &&
                 <RecipeImgDetailDialog
+                    isPublic={true}
                     recipe={RecipeImgDetail}
                     onDismiss={() => setRecipeImgDetail(null)}
-                    onEdit={() => {
-                        onRecipeClicked(RecipeImgDetail);
-                        setRecipeImgDetail(null);
-                    }}
-                    onDelete={() => {
-                        onDeleteRecipeClicked(RecipeImgDetail);
-                        setRecipeImgDetail(null);
-                    }}
                     createdAtString={createdAtDate}
                     updatedAtString={updatedAtDate}
                 />
             }
-            {/*THIRD element*/}
-            <ConfirmationDialog
-                show={showConfirmDelete}
-                title="Confirm Delete"
-                message="Are you sure you want to delete this recipe?"
-                onConfirm={() => {
-                    //calling deleteRecipe in App.tsx, passing the recipe in it
-                    onDeleteRecipeClicked(recipe);
-                    setShowConfirmDelete(false);
-                }}
-                onCancel={() => setShowConfirmDelete(false)}
-            />
             {/*Wrapper ends*/}
         </>
 
     )
 }
 
-export default Recipe;
+export default PublicRecipe;

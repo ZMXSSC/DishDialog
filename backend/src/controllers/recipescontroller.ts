@@ -126,10 +126,12 @@ export const getRecipe: RequestHandler = async (req, res, next) => {
 //We define an interface(customize type) of the request body
 //We will ensure that the request body will have either undefined(if user did not input) or string type
 interface CreateRecipeBody {
+    author?: string,
     title?: string,
     text?: string,
+    isPublic?: boolean,
     imageName?: string,
-    imageDesc?: string
+    imageDesc?: string,
 }
 
 //We need to specify the type for request.body! That will be the third argument in the RequestHandler function signature
@@ -138,11 +140,12 @@ type CreateRecipeRequest = Request<unknown, unknown, CreateRecipeBody, unknown> 
 
 //Callback function to create a recipe
 export const createRecipe = async (req: CreateRecipeRequest, res: Response, next: NextFunction) => {
-
+    const author = req.body.author;
     const title = req.body.title;
     const text = req.body.text;
+    const isPublic = req.body.isPublic !== undefined ? JSON.parse(req.body.isPublic) : true;
     const imageDesc = req.body.imageDesc;
-    // const { title, text } = req.body;
+
     const authenticatedUserId = req.session.userId;
 
     try {
@@ -155,11 +158,13 @@ export const createRecipe = async (req: CreateRecipeRequest, res: Response, next
         }
         //Use Mongoose to create a new recipe
         const newRecipe = await RecipeModel.create({
+            author: author,
             userId: authenticatedUserId,
             title: title,
             text: text,
+            isPublic: isPublic,
             imageName: req.file?.filename, // The filename of the uploaded image
-            imageDesc: imageDesc
+            imageDesc: imageDesc,
             //timestamp will be created automatically
         });
         //201 indicates HTTP code for a new resource created can also use 200(ok)
@@ -177,6 +182,7 @@ interface UpdateRecipeParams {
 interface UpdateRecipeBody {
     title?: string,
     text?: string,
+    isPublic?: boolean,
     imageName?: string,
     imageDesc?: string
 }
@@ -191,7 +197,9 @@ export const updateRecipe = async (req: UpdateRecipeRequest, res: Response, next
     const recipeId = req.params.recipeId;
     const newTitle = req.body.title;
     const newText = req.body.text;
+    const isPublic = req.body.isPublic !== undefined ? JSON.parse(req.body.isPublic) : undefined;
     const newImageDesc = req.body.imageDesc;
+
     const authenticatedUserId = req.session.userId;
 
     try {
@@ -221,6 +229,7 @@ export const updateRecipe = async (req: UpdateRecipeRequest, res: Response, next
 
         recipe.title = newTitle;
         recipe.text = newText;
+        recipe.isPublic = isPublic !== undefined ? isPublic : recipe.isPublic; // If isPublic is undefined, we keep the old value
         recipe.imageDesc = newImageDesc;
         // Check if a new image file is provided
         if (req.file) {
@@ -293,8 +302,8 @@ export const deleteRecipe: RequestHandler = async (req, res, next) => {
         next(error);
     }
 };
-//callback function to get the image of the recipe
-export const getRecipeImage: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+//Callback function to get the image of the recipe
+export const getRecipeImage: RequestHandler = async (req, res, next) => {
     const recipeId = req.params.recipeId;
 
     try {
@@ -328,3 +337,13 @@ export const getRecipeImage: RequestHandler = async (req: Request, res: Response
         next(error);
     }
 };
+
+//Callback function to get all public recipes
+export const getPublicRecipes: RequestHandler = async (req, res, next) => {
+    try {
+        const recipes = await RecipeModel.find({isPublic: true}).exec();
+        res.status(200).json(recipes);
+    } catch (error) {
+        next(error);
+    }
+}

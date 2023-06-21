@@ -2,6 +2,7 @@ import "dotenv/config";
 import express, {NextFunction, Request, Response} from "express";
 import recipesRoutes from "./routes/recipes";
 import userRoutes from "./routes/users"
+import * as RecipesController from "./controllers/recipescontroller";
 import morgan from "morgan";
 import createHttpError, {isHttpError} from "http-errors";
 import session from "express-session"
@@ -38,7 +39,7 @@ app.use(session({
         mongoUrl: env.MONGO_CONNECTION_STRING
     })
 }))
-
+app.use("/api/public-recipes", RecipesController.getPublicRecipes);
 //Middleware catches any requests that goes to /api/users endpoint
 //For the specific endpoint, it will be forwarded to the userRoutes
 app.use("/api/users", userRoutes);

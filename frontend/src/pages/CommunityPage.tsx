@@ -1,9 +1,12 @@
+import {Container} from "react-bootstrap";
+import styles from "../styles/RecipePage.module.css";
+import PublicRecipesView from "../components/PublicRecipesComp/PublicRecipesView";
 
 const CommunityPage = () => {
     return (
-        <div>
-            Community Page
-        </div>
+        <Container className={styles.recipesPage}>
+            <PublicRecipesView/>
+        </Container>
     );
 }
 

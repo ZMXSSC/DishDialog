@@ -6,15 +6,17 @@ import * as RecipesApi from "../network/recipes_api"
 import TextInputField from "./form/TextInputField";
 import FileInputField from "./form/FileInputField";
 import {useState} from "react";
+import {User} from "../models/user";
 
 interface AddEditRecipeDialogProps {
+    loggedInUser?: User,
     recipeToEdit?: Recipe,
     onDismiss: () => void,
     onRecipeSaved: (recipe: Recipe) => void
 }
 
 //The Dialog(pop up window) that we design to create new recipe
-const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRecipeDialogProps) => {
+const AddEditRecipeDialog = ({loggedInUser, recipeToEdit, onDismiss, onRecipeSaved}: AddEditRecipeDialogProps) => {
 
     //from react-hook-form
     //register is used to collect input from each input form
@@ -28,7 +30,7 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
         defaultValues: {
             title: recipeToEdit?.title || "",
             text: recipeToEdit?.text || "",
-            imageDesc: recipeToEdit?.imageDesc || ""
+            imageDesc: recipeToEdit?.imageDesc || "",
         }
     });
 
@@ -39,8 +41,14 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
         try {
             let recipeResponse: Recipe;
             const formData = new FormData();
+            if (!recipeToEdit) {
+                formData.append("author", loggedInUser?.username || "");
+            }
             formData.append("title", input.title);
             formData.append("text", input.text || "");
+            ;
+            formData.append("isPublic", input.isPublic || "");
+
             if (file) {
                 formData.append("image", file);
             }
@@ -58,6 +66,8 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
             alert(error);
         }
     }
+
+    const isPublic = recipeToEdit?.isPublic ? 'true' : 'false';
 
 
     return (
@@ -116,6 +126,25 @@ const AddEditRecipeDialog = ({recipeToEdit, onDismiss, onRecipeSaved}: AddEditRe
                         //The end of "other" properties in [x: string]: any
                         register={register}
                     />
+                    <Form.Check
+                        {...register("isPublic", {required: true})}
+                        type="radio"
+                        label="Public"
+                        value="true"
+                        id="public"
+                        defaultChecked={isPublic === "true"}
+                    />
+
+                    <Form.Check
+                        {...register("isPublic", {required: true})}
+                        type="radio"
+                        label="Private"
+                        value="false"
+                        id="private"
+                        defaultChecked={isPublic === "false"}
+
+                    />
+
 
                 </Form>
             </Modal.Body>
