@@ -54,8 +54,7 @@ const fileFilter = (req: MulterRequest, file: Express.Multer.File, cb: multer.Fi
     const fileSize: number = parseInt(req.headers['content-length'] || '0');
     if (fileSize > MaxFileSize) {
         cb(createHttpError(400, 'File size too large, cannot exceed 5MB!'));
-    }
-    else{
+    } else {
         cb(null, true);
     }
 }
@@ -67,8 +66,6 @@ export const upload = multer({
     //The limit is buggy, so we will use fileFilter to check the file size
     // limits: {fileSize: 1024 * 1024 * 5} // 5MB
 }).single('image');
-
-
 
 
 //Callback function to return ALL recipes
@@ -285,10 +282,10 @@ export const deleteRecipe: RequestHandler = async (req, res, next) => {
             //The image filename from recipes collection can link to the uploads.files collection,
             //Then from that specific entry form uploads.files collction, we can see the _id of the image file
             //Lastly, we can use that _id to delete the image file from uploads.chunks and uploads.files collection
-            const file = await filesCollection.findOne({ filename: recipe.imageName });
+            const file = await filesCollection.findOne({filename: recipe.imageName});
             if (file) {
-                await chunksCollection.deleteMany({ files_id: file._id });
-                await filesCollection.deleteOne({ _id: file._id });
+                await chunksCollection.deleteMany({files_id: file._id});
+                await filesCollection.deleteOne({_id: file._id});
             }
         }
 
@@ -347,3 +344,41 @@ export const getPublicRecipes: RequestHandler = async (req, res, next) => {
         next(error);
     }
 }
+
+interface SearchRecipesParams {
+    term: string,
+}
+
+type SearchRecipesRequest = Request<unknown, unknown, unknown, SearchRecipesParams>;
+
+export const searchRecipes = async (req: SearchRecipesRequest, res: Response, next: NextFunction) => {
+    //Get the search query string from the request
+    //The query string is the part of the URL after the ? character
+    //For example, if the request is /recipes/search?term=soup, then the query string is "soup"
+    const queryString = req.query.term;
+    try {
+        //Find all recipes that contain the search query string in their title or text
+        //The $text operator is used to perform text search in MongoDB
+        const recipes = await RecipeModel.find({
+                //Use the $search operator to search for the query string in the title and text fields
+                $text: {$search: queryString},
+                //Only return public recipes(we don't want to search others' private recipes)
+                isPublic: true
+            },
+            //Use the $meta operator to sort the results by the textScore
+            //The textScore is a measure of how relevant the search results are to the search query
+            //The higher the textScore, the more relevant the search result is
+            {
+                //Sort the results by the textScore in descending order
+                score: {$meta: "textScore"}}) //end of find()
+            .sort({score: {$meta: "textScore"}}).exec();
+
+        res.status(200).json(recipes);
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+
+

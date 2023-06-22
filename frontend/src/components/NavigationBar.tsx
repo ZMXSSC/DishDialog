@@ -1,5 +1,5 @@
 import {User} from "../models/user";
-import {Button, Col, Container, Form, FormControl, Nav, Navbar, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, Nav, Navbar, Row} from "react-bootstrap";
 import NavBarLoggedInView from "./NavBarLoggedInView";
 import NavBarLoggedOutView from "./NavBarLoggedOutView";
 import {Link, useNavigate} from "react-router-dom"
@@ -23,6 +23,9 @@ const NavigationBar = ({loggedInUser, onSignUpClicked, onLoginClicked, onLogoutS
 
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        //preventDefault prevents the default action of the event from occurring
+        //In this case, the default action is to refresh the page
+        //We don't want to refresh the page, we only want to navigate to the search page
         e.preventDefault();
         navigate(`/search?term=${term}`);
     }
@@ -52,7 +55,12 @@ const NavigationBar = ({loggedInUser, onSignUpClicked, onLoginClicked, onLogoutS
                         <Row style={{ width: '100%' }}>
                             <Col xs={9}>
                                 <Form.Group>
-                                    <FormControl type="search" placeholder="Search" aria-label="Search" value={term} onChange={(e) => setTerm(e.target.value)} />
+                                    <Form.Control type="search"
+                                                 placeholder="Search"
+                                                 aria-label="Search"
+                                                 value={term}
+                                                 onChange={(e) =>
+                                                     setTerm(e.target.value)} />
                                 </Form.Group>
                             </Col>
                             <Col xs={3}>

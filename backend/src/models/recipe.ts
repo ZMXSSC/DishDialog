@@ -16,6 +16,10 @@ const recipeSchema = new Schema({
     //We can do it here:
 }, {timestamps: true});
 
+//Adding text index to title and text
+//this will allow us to search for recipes by title and text
+//https://docs.mongodb.com/manual/text-search/
+recipeSchema.index({ title: 'text', text: 'text' });
 
 //Create a type for typescript
 type Recipe = InferSchemaType<typeof recipeSchema>;

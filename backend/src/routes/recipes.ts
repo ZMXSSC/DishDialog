@@ -10,6 +10,9 @@ router.get("/", RecipesController.getRecipes);
 //It indicates that the segment of the URL following the / will be treated as the recipeId parameter.
 
 
+router.get('/search', RecipesController.searchRecipes);
+
+
 router.get("/:recipeId", RecipesController.getRecipe);
 
 // router.post("/", RecipesController.createRecipe);
@@ -29,7 +32,6 @@ router.patch("/:recipeId", upload, RecipesController.updateRecipe);
 router.delete("/:recipeId", RecipesController.deleteRecipe);
 
 router.get('/:recipeId/image', RecipesController.getRecipeImage);
-
 
 
 export default router;

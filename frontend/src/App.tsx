@@ -11,6 +11,7 @@ import CommunityPage from "./pages/CommunityPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import styles from "./styles/App.module.css"
 import DiscoverPage from "./pages/DiscoverPage";
+import SearchResultsPage from "./components/PublicRecipesComp/SearchResultsPage";
 
 
 function App() {
@@ -59,6 +60,8 @@ function App() {
                             path='/discover'
                             element={<DiscoverPage/>}
                         />
+                        <Route path="/search"
+                               element={<SearchResultsPage/>}/>
                         <Route
                             path='/*'
                             element={<NotFoundPage/>}
