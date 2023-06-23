@@ -46,7 +46,8 @@ function App() {
                                onLoginClicked={() => setShowLoginModal(true)}
                                onLogoutSuccessful={() => setLoggedInUser(null)}
                 />
-                <Container className={styles.pageContainer}>
+                {/*container fluid is a bootstrap class that makes the container span the entire width of the page*/}
+                <Container fluid className={styles.pageContainer}>
                     <Routes>
                         <Route
                             path='/'
@@ -60,8 +61,10 @@ function App() {
                             path='/discover'
                             element={<DiscoverPage/>}
                         />
-                        <Route path="/search"
-                               element={<SearchResultsPage/>}/>
+                        <Route
+                            path="/search"
+                            element={<SearchResultsPage/>}
+                        />
                         <Route
                             path='/*'
                             element={<NotFoundPage/>}
