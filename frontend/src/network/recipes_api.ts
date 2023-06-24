@@ -37,7 +37,8 @@ export interface RecipeInput {
     text?: string,
     isPublic?: string,
     image?: File,
-    imageDesc?: string
+    imageDesc?: string,
+    hasImage?: string,
 }
 
 export async function createRecipe(recipe: FormData): Promise<Recipe> {

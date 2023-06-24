@@ -129,6 +129,9 @@ interface CreateRecipeBody {
     isPublic?: boolean,
     imageName?: string,
     imageDesc?: string,
+    hasImage?: boolean,
+    longitude?: number,
+    latitude?: number,
 }
 
 //We need to specify the type for request.body! That will be the third argument in the RequestHandler function signature
@@ -142,6 +145,10 @@ export const createRecipe = async (req: CreateRecipeRequest, res: Response, next
     const text = req.body.text;
     const isPublic = req.body.isPublic !== undefined ? JSON.parse(req.body.isPublic) : true;
     const imageDesc = req.body.imageDesc;
+    const hasImage = req.body.hasImage !== undefined ? JSON.parse(req.body.hasImage) : false;
+    const longitude = req.body.longitude ? parseFloat(req.body.longitude) : undefined;
+    const latitude = req.body.latitude ? parseFloat(req.body.latitude) : undefined;
+
 
     const authenticatedUserId = req.session.userId;
 
@@ -162,6 +169,9 @@ export const createRecipe = async (req: CreateRecipeRequest, res: Response, next
             isPublic: isPublic,
             imageName: req.file?.filename, // The filename of the uploaded image
             imageDesc: imageDesc,
+            hasImage: hasImage,
+            longitude: longitude,
+            latitude: latitude,
             //timestamp will be created automatically
         });
         //201 indicates HTTP code for a new resource created can also use 200(ok)
@@ -181,7 +191,10 @@ interface UpdateRecipeBody {
     text?: string,
     isPublic?: boolean,
     imageName?: string,
-    imageDesc?: string
+    imageDesc?: string,
+    hasImage?: boolean,
+    longitude?: number,
+    latitude?: number,
 }
 
 //We need to specify the type for request.body! That will be the third argument in the RequestHandler function signature
@@ -196,6 +209,9 @@ export const updateRecipe = async (req: UpdateRecipeRequest, res: Response, next
     const newText = req.body.text;
     const isPublic = req.body.isPublic !== undefined ? JSON.parse(req.body.isPublic) : undefined;
     const newImageDesc = req.body.imageDesc;
+    const hasImage = req.body.hasImage !== undefined ? JSON.parse(req.body.hasImage) : undefined;
+    const longitude = req.body.longitude ? parseFloat(req.body.longitude) : undefined;
+    const latitude = req.body.latitude ? parseFloat(req.body.latitude) : undefined;
 
     const authenticatedUserId = req.session.userId;
 
@@ -228,6 +244,9 @@ export const updateRecipe = async (req: UpdateRecipeRequest, res: Response, next
         recipe.text = newText;
         recipe.isPublic = isPublic !== undefined ? isPublic : recipe.isPublic; // If isPublic is undefined, we keep the old value
         recipe.imageDesc = newImageDesc;
+        recipe.hasImage = hasImage !== undefined ? hasImage : recipe.hasImage;
+        recipe.longitude = longitude;
+        recipe.latitude = latitude;
         // Check if a new image file is provided
         if (req.file) {
             // Delete the old image file if it exists

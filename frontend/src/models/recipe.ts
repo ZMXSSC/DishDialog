@@ -1,13 +1,15 @@
 //Describe what each recipe should have
 export interface Recipe {
-    //we received json so everything should be string
     _id: string,
     author: string,
     title: string,
     text?: string,
     image?: File,
     imageDesc?: string,
+    hasImage: boolean,
     isPublic: boolean,
+    longitude?: number,
+    latitude?: number,
     createdAt: string,
     updatedAt: string
 }
