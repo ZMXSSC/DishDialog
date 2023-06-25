@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {Modal, Button} from 'react-bootstrap';
+import {Modal, Button, Container, Row, Col} from 'react-bootstrap';
 import {Recipe as RecipeModel} from "../models/recipe";
 import styles from "../styles/Recipe.module.css";
 import ConfirmationDialog from "./ConfirmationDialog"
+import CommentSection from "./PublicRecipesComp/CommentSection";
 
 interface RecipeDetailDialogProps {
     recipe: RecipeModel,
@@ -27,12 +28,24 @@ const RecipeNoImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
 
     return (
         <div>
-            <Modal show={true} onHide={onDismiss} size="lg">
+            <Modal show={true} onHide={onDismiss} dialogClassName={styles.modal60w}>
                 <Modal.Header closeButton>
                     <Modal.Title>{recipe.title}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className={`${styles.cardText} ${styles.textBody}`}>
-                    <div style={{fontSize: '25px'}}>{recipe.text}</div>
+                {/*<Modal.Body className={`${styles.cardText} ${styles.textBody}`}>*/}
+                {/*    <div style={{fontSize: '25px'}}>{recipe.text}</div>*/}
+                {/*</Modal.Body>*/}
+                <Modal.Body className={styles.cardText}>
+                    <Container fluid>
+                        <Row>
+                            <Col className={styles.textBody} md={8}>
+                                <div style={{fontSize: '25px'}}>{recipe.text}</div>
+                            </Col>
+                            <Col md={4}>
+                                <CommentSection recipe={recipe}/>
+                            </Col>
+                        </Row>
+                    </Container>
                 </Modal.Body>
                 <Modal.Footer>
                     <p style={{padding: '10px', whiteSpace: 'pre-wrap'}}>

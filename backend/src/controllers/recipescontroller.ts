@@ -1,4 +1,4 @@
-import {RequestHandler} from "express";
+import {NextFunction, Request, RequestHandler, Response} from "express";
 import RecipeModel from "../models/recipe"
 import createHttpError from "http-errors";
 import mongoose from "mongoose";
@@ -8,8 +8,6 @@ import {GridFsStorage} from 'multer-gridfs-storage';
 import crypto from "crypto";
 import path from "path"
 import env from "../util/validateEnv"
-import {Request} from "express";
-import {Response, NextFunction} from 'express';
 import {GridFSBucket} from 'mongodb';
 import {getDbConnection} from '../server';
 
@@ -70,7 +68,9 @@ export const upload = multer({
 
 //Callback function to return ALL recipes
 export const getRecipes: RequestHandler = async (req, res, next) => {
-
+    //req.session is the session object associated with the request
+    //It comes from the express-session middleware that we added in app.ts
+    //If we remove the session middleware, req.session will be undefined
     const authenticatedUserId = req.session.userId;
 
     try {
@@ -102,7 +102,9 @@ export const getRecipe: RequestHandler = async (req, res, next) => {
         if (!mongoose.isValidObjectId(recipeId)) {
             throw createHttpError(400, "Invalid recipe id");
         }
-        const recipe = await RecipeModel.findById(recipeId).exec();
+        //populate() is used to populate the comment field in the recipe document, so that we can access the comment
+        //even if there's no comment, we could still get the recipe
+        const recipe = await RecipeModel.findById(recipeId).populate('comment').exec();
         //If the recipe does not exist we also throw error
         if (!recipe) {
             throw createHttpError(404, "The recipe you are looking for doesn't exist");
@@ -389,7 +391,8 @@ export const searchRecipes = async (req: SearchRecipesRequest, res: Response, ne
             //The higher the textScore, the more relevant the search result is
             {
                 //Sort the results by the textScore in descending order
-                score: {$meta: "textScore"}}) //end of find()
+                score: {$meta: "textScore"}
+            }) //end of find()
             .sort({score: {$meta: "textScore"}}).exec();
 
         res.status(200).json(recipes);

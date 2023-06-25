@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import React, {useState, useEffect} from 'react';
+import {MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
 import * as RecipesApi from "../network/recipes_api";
-import { Recipe } from "../models/recipe";
+import {Recipe} from "../models/recipe";
 import L from 'leaflet';
 import foodImage from '../utils/food.png';
 import RecipeImgDetailedDialog from '../components/RecipeImgDetailedDialog'
 import RecipeNoImgDetailedDialog from '../components/RecipeNoImgDetailedDialog';
+import {formatDate} from "../utils/formatDate";
 
 const foodIcon = L.icon({
     iconUrl: foodImage,
@@ -26,7 +27,7 @@ const DiscoverPage = () => {
 
         loadRecipes();
     }, []);
-
+ 
     const onPopupClick = (recipe: Recipe) => {
         setSelectedRecipe(recipe);
     };
@@ -37,7 +38,7 @@ const DiscoverPage = () => {
 
     return (
         <>
-            <MapContainer style={{ height: "88vh", width: "100%" }} center={[37.8277754, -122.2662917]} zoom={13}
+            <MapContainer style={{height: "88vh", width: "100%"}} center={[37.8277754, -122.2662917]} zoom={13}
                           scrollWheelZoom={true}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -61,8 +62,8 @@ const DiscoverPage = () => {
                 <RecipeImgDetailedDialog
                     recipe={selectedRecipe}
                     onDismiss={onDismiss}
-                    createdAtString={selectedRecipe.createdAt} // Or your own format
-                    updatedAtString={selectedRecipe.updatedAt} // Or your own format
+                    createdAtString={"Created: " + formatDate(selectedRecipe.createdAt)}
+                    updatedAtString={"Updated: " + formatDate(selectedRecipe.updatedAt)}
                     isPublic={selectedRecipe.isPublic}
                 />
             ) : (
@@ -70,8 +71,8 @@ const DiscoverPage = () => {
                     <RecipeNoImgDetailedDialog
                         recipe={selectedRecipe}
                         onDismiss={onDismiss}
-                        createdAtString={selectedRecipe.createdAt} // Or your own format
-                        updatedAtString={selectedRecipe.updatedAt} // Or your own format
+                        createdAtString={"Created: " + formatDate(selectedRecipe.createdAt)}
+                        updatedAtString={"Updated: " + formatDate(selectedRecipe.updatedAt)}
                         isPublic={selectedRecipe.isPublic}
                     />
                 )

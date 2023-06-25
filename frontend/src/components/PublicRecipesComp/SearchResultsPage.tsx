@@ -3,7 +3,7 @@ import {useState, useEffect} from "react";
 import {getRecipesBySearchTerm} from "../../network/recipes_api";
 import {Recipe} from "../../models/recipe";
 import PublicRecipe from "./PublicRecipe";
-import {Col, Row, Spinner} from "react-bootstrap";
+import {Col, Container, Row, Spinner} from "react-bootstrap";
 import styles from "../../styles/RecipePage.module.css";
 
 
@@ -61,15 +61,15 @@ const SearchPage = () => {
         </Row>;
 
     return (
-        <div>
+        <Container className={styles.recipesPage}>
             <h1>Search Results for "{term}"</h1>
             {recipesLoading && <Spinner animation='border' variant='primary'/>}
             {showRecipesLoadingError &&
                 <>
-                <p className={styles.errorMessage}>
-                    Something went wrong. Please refresh the page.</p>
-                <p className={styles.errorMessage}>
-                    If you haven't signed in yet, please sign in to search.</p>
+                    <p className={styles.errorMessage}>
+                        Something went wrong. Please refresh the page.</p>
+                    <p className={styles.errorMessage}>
+                        If you haven't signed in yet, please sign in to search.</p>
                 </>
             }
             {!recipesLoading && !showRecipesLoadingError &&
@@ -77,7 +77,7 @@ const SearchPage = () => {
                     ? recipesGrid
                     : <p className={styles.errorMessage}>No results found</p>)
             }
-        </div>
+        </Container>
     );
 };
 

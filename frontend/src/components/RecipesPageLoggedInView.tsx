@@ -28,7 +28,6 @@ const RecipesPageLoggedInView = ({loggedInUser}: RecipesPageLoggedInViewProps) =
     const [recipeToEdit, setRecipeToEdit] = useState<RecipeModel | null>(null);
 
 
-
     useEffect(() => {
         //loadRecipes() uses the Fetch API to send a GET request to the API endpoint
         //Then converts the response to JSON and updates the state with the recipes received.

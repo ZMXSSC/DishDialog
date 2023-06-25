@@ -3,6 +3,7 @@ import {Modal, Button, Container, Row, Col, Image} from 'react-bootstrap';
 import {Recipe as RecipeModel} from "../models/recipe";
 import styles from "../styles/Recipe.module.css";
 import ConfirmationDialog from "./ConfirmationDialog"
+import CommentSection from "./PublicRecipesComp/CommentSection";
 
 interface RecipeDetailDialogProps {
     recipe: RecipeModel,
@@ -30,14 +31,17 @@ const RecipeImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
                     <Modal.Title>{recipe.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className={styles.cardText}>
-                    <Container>
+                    <Container fluid>
                         <Row>
-                            <Col>
+                            <Col md={5}>
                                 <Image src={`/api/recipes/${recipe._id}/image/`} rounded className={styles.imageStyle}/>
                                 <div style={{padding: '25px'}}>{recipe.imageDesc}</div>
                             </Col>
-                            <Col className={styles.textBody}>
+                            <Col className={styles.textBody} md={4}>
                                 <div style={{fontSize: '25px'}}>{recipe.text}</div>
+                            </Col>
+                            <Col md={2}>
+                                <CommentSection recipe={recipe}/>
                             </Col>
                         </Row>
                     </Container>

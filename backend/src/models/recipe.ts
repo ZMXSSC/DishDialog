@@ -16,6 +16,11 @@ const recipeSchema = new Schema({
     //Each of the recipe might have longitude and latitude
     longitude: {type: Number},
     latitude: {type: Number},
+    //Each of the recipe may have a list of comments
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    }],
     //Timestamp can be done by mongoose, so we don't need to define it here
     //We can do it here:
 }, {timestamps: true});

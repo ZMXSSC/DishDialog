@@ -2,6 +2,7 @@ import "dotenv/config";
 import express, {NextFunction, Request, Response} from "express";
 import recipesRoutes from "./routes/recipes";
 import userRoutes from "./routes/users"
+import commentsRoutes from "./routes/comments"
 import * as RecipesController from "./controllers/recipescontroller";
 import morgan from "morgan";
 import createHttpError, {isHttpError} from "http-errors";
@@ -48,6 +49,7 @@ app.use("/api/users", userRoutes);
 //If the user is not authenticated, the middleware will throw an error
 //For the specific endpoint, it will be forwarded to the recipesRoutes
 app.use("/api/recipes", requiresAuth, recipesRoutes);
+app.use("/api/comments", commentsRoutes);
 
 //Middleware, catch-all middleware
 //will catch the request to "http://localhost:8080/rrr" because it acts as a catch-all middleware.

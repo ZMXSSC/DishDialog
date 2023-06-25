@@ -59,6 +59,10 @@
     max-width: 90% !important;
 }
 
+.modal60w {
+    max-width: 60% !important;
+}
+
 .textBody {
     max-height: 500px;
     overflow-y: auto;
