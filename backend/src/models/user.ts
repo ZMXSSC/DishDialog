@@ -8,7 +8,7 @@ const userSchema = new Schema({
     //the false here indicate when we retrieve the data, email and password won't be return by default
     //unless we explicitly request to retrieve those for the sake of safety
     email: {type: String, required: true, unique: true, select: false},
-    password: {type: String, required: true, select: false},
+    password: {type: String, required: true, select: false}
 });
 
 //Create a type for typescript

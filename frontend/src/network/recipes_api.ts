@@ -1,5 +1,6 @@
 import {Recipe} from "../models/recipe";
 import {User} from "../models/user";
+import {Comment} from "../models/comment";
 import {ConflictError, UnauthorizedError} from "../errors/http_errors";
 
 async function fetchData(input: RequestInfo, init?: RequestInit) {
@@ -30,6 +31,10 @@ export async function fetchPublicRecipes(): Promise<Recipe[]> {
     return response.json();
 }
 
+export async function fetchComments(recipeId: string): Promise<Comment[]> {
+    const response = await fetchData(`/api/comments/${recipeId}`, {method: "GET"});
+    return response.json();
+}
 
 export interface RecipeInput {
     author: string,
@@ -53,14 +58,32 @@ export async function createRecipe(recipe: FormData): Promise<Recipe> {
     return response.json();
 }
 
-export async function getRecipesBySearchTerm(term: string): Promise<Recipe[]> {
-    const encodedTerm = encodeURIComponent(term);
-    const response = await fetchData(`/api/recipes/search?term=${encodedTerm}`, { method: "GET" });
+export interface CommentInput {
+    text: string,
+    user: string, // user id actually
+    recipe: string // recipe id actually
+}
+
+export async function createComment(comment: CommentInput): Promise<Comment> {
+    const requestOptions: RequestInit = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(comment)
+    };
+
+    const response = await fetchData("/api/comments", requestOptions);
     return response.json();
 }
 
 
 
+export async function getRecipesBySearchTerm(term: string): Promise<Recipe[]> {
+    const encodedTerm = encodeURIComponent(term);
+    const response = await fetchData(`/api/recipes/search?term=${encodedTerm}`, {method: "GET"});
+    return response.json();
+}
 
 
 export async function getLoggedInUser(): Promise<User> {
@@ -121,4 +144,8 @@ export async function updateRecipe(recipeId: string, recipe: FormData): Promise<
 
 export async function deleteRecipe(recipeId: string) {
     await fetchData("/api/recipes/" + recipeId, {method: "DELETE"});
+}
+
+export async function deleteComment(commentId: string) {
+    await fetchData(`/api/comments/${commentId}`, {method: "DELETE"});
 }

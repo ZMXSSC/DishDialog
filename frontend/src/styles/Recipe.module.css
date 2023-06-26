@@ -67,3 +67,14 @@
     max-height: 500px;
     overflow-y: auto;
 }
+
+.commentSectionRow {
+    height: 600px; /* Set the desired height for the scrollable section */
+    width: 500px;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.commentSectionContainer {
+    padding-right: 15px; /* Add right padding to avoid scrollbar overlap */
+    word-wrap: break-word; /* Wrap long words onto the next line */
+}

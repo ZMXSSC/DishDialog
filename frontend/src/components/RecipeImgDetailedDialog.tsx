@@ -1,11 +1,16 @@
-import React, {useState} from 'react';
-import {Modal, Button, Container, Row, Col, Image} from 'react-bootstrap';
+import React, {useEffect, useState} from 'react';
+import {Button, Col, Container, Form, Image, Modal, Row} from 'react-bootstrap';
 import {Recipe as RecipeModel} from "../models/recipe";
 import styles from "../styles/Recipe.module.css";
 import ConfirmationDialog from "./ConfirmationDialog"
 import CommentSection from "./PublicRecipesComp/CommentSection";
+import {useForm} from "react-hook-form";
+import TextInputField from "./form/TextInputField";
+import {CommentInput, createComment} from "../network/recipes_api";
+import {User} from "../models/user";
 
 interface RecipeDetailDialogProps {
+    loggedInUser?: User,
     recipe: RecipeModel,
     onDismiss: () => void,
     onEdit?: () => void,
@@ -16,6 +21,7 @@ interface RecipeDetailDialogProps {
 }
 
 const RecipeImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
+                                                                      loggedInUser,
                                                                       recipe,
                                                                       onDismiss,
                                                                       onEdit,
@@ -23,6 +29,33 @@ const RecipeImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
                                                                       createdAtString, updatedAtString, isPublic
                                                                   }) => {
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+
+    const [commentSubmitted, setCommentSubmitted] = useState(false);
+
+    const {register, handleSubmit, reset, formState: {errors}} = useForm<CommentInput>();
+    const onSubmit = async (input: CommentInput) => {
+        try {
+            const commentData: CommentInput = {
+                text: input.text,
+                user: loggedInUser?._id || '',
+                recipe: recipe._id
+            };
+
+            await createComment(commentData);
+            setCommentSubmitted(true);
+
+            // clear the form after submission
+            reset();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        // Trigger re-render of the CommentSection component when commentSubmitted changes
+        setCommentSubmitted(false);
+    }, [commentSubmitted]);
+
 
     return (
         <div>
@@ -41,7 +74,23 @@ const RecipeImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
                                 <div style={{fontSize: '25px'}}>{recipe.text}</div>
                             </Col>
                             <Col md={2}>
-                                <CommentSection recipe={recipe}/>
+                                <Row md={10} className={styles.commentSectionRow}>
+                                    <div className={styles.commentSectionContainer}>
+                                        <CommentSection key={commentSubmitted.toString()} recipeId={recipe._id} />
+                                    </div>
+                                </Row>
+                                <Row md={2}>
+                                    <Form onSubmit={handleSubmit(onSubmit)}>
+                                        <TextInputField
+                                            name="text"
+                                            label="Add a comment"
+                                            register={register}
+                                            registerOptions={{required: 'Comment is required.'}}
+                                            error={errors.text}
+                                        />
+                                        <Button variant="primary" type="submit">Submit Comment</Button>
+                                    </Form>
+                                </Row>
                             </Col>
                         </Row>
                     </Container>

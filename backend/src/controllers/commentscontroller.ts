@@ -58,6 +58,7 @@ export const getComments: RequestHandler = async (req, res, next) => {
         //Use Mongoose to find all comments that belong to a recipe, and populate the user id with the username
         //the populate function will replace the user id with the user document, and only keep the username field, so that the response will only contain the username
         const comments = await CommentModel.find({recipe: req.params.recipeId}).populate('user', 'username').exec();
+        console.log(comments); // Add this line to log the comments to the console
         res.status(200).json(comments);
     } catch (error) {
         next(error);

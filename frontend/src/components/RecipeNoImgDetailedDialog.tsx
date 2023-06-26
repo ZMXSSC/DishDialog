@@ -4,8 +4,10 @@ import {Recipe as RecipeModel} from "../models/recipe";
 import styles from "../styles/Recipe.module.css";
 import ConfirmationDialog from "./ConfirmationDialog"
 import CommentSection from "./PublicRecipesComp/CommentSection";
+import {User} from "../models/user";
 
 interface RecipeDetailDialogProps {
+    loggedInUser?: User,
     recipe: RecipeModel,
     onDismiss: () => void,
     onEdit?: () => void,
@@ -42,7 +44,7 @@ const RecipeNoImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
                                 <div style={{fontSize: '25px'}}>{recipe.text}</div>
                             </Col>
                             <Col md={4}>
-                                <CommentSection recipe={recipe}/>
+                                <CommentSection recipeId={recipe._id}/>
                             </Col>
                         </Row>
                     </Container>

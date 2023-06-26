@@ -9,15 +9,17 @@ import {useState} from "react";
 import ConfirmationDialog from './ConfirmationDialog';
 import RecipeNoImgDetailDialog from "./RecipeNoImgDetailedDialog";
 import RecipeImgDetailDialog from "./RecipeImgDetailedDialog";
+import {User} from "../models/user";
 
 interface RecipeProps {
+    loggedInUser: User,
     recipe: RecipeModel,
     onRecipeClicked: (recipe: RecipeModel) => void,
     onDeleteRecipeClicked: (recipe: RecipeModel) => void,
     className?: string,
 }
 
-const Recipe = ({recipe, onRecipeClicked, onDeleteRecipeClicked, className}: RecipeProps) => {
+const Recipe = ({loggedInUser, recipe, onRecipeClicked, onDeleteRecipeClicked, className}: RecipeProps) => {
 
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [RecipeNoImgDetail, setRecipeNoImgDetail] = useState<RecipeModel | null>(null);
@@ -117,6 +119,7 @@ const Recipe = ({recipe, onRecipeClicked, onDeleteRecipeClicked, className}: Rec
 
             {RecipeNoImgDetail &&
                 <RecipeNoImgDetailDialog
+                    loggedInUser={loggedInUser}
                     recipe={RecipeNoImgDetail}
                     onDismiss={() => setRecipeNoImgDetail(null)}
                     onEdit={() => {
@@ -134,6 +137,7 @@ const Recipe = ({recipe, onRecipeClicked, onDeleteRecipeClicked, className}: Rec
 
             {RecipeImgDetail &&
                 <RecipeImgDetailDialog
+                    loggedInUser={loggedInUser}
                     recipe={RecipeImgDetail}
                     onDismiss={() => setRecipeImgDetail(null)}
                     onEdit={() => {

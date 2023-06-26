@@ -8,7 +8,7 @@ export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
 
     try {
         //We will fetch the user id from the session, then we will find the user with that id
-        const user = await UserModel.findById(req.session.userId).select("+email").exec();
+        const user = await UserModel.findById(req.session.userId).select("+email +_id").exec();
         res.status(200).json(user);
     } catch (error) {
         next(error);
@@ -99,7 +99,7 @@ export const login: RequestHandler<unknown, unknown, LoginBody, unknown> = async
 
         //Check if there's actually a user given the username(we also fetch their password and email explicitly since
         //by default we disabled the auto fetch in user.ts)
-        const user = await UserModel.findOne({username: username}).select("+password +email").exec();
+        const user = await UserModel.findOne({username: username}).select("+password +email +_id").exec();
 
         //If we can't find the user associate with the username, we tell the user that the credential is invalid
         if (!user) {

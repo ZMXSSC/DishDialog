@@ -76,6 +76,7 @@ const RecipesPageLoggedInView = ({loggedInUser}: RecipesPageLoggedInViewProps) =
                 // Col is used to add gap horizontally among recipes
                 <Col key={recipe._id}>
                     <Recipe
+                        loggedInUser={loggedInUser}
                         recipe={recipe}
                         className={styles.recipe}
                         onRecipeClicked={(recipe) => setRecipeToEdit(recipe)}
