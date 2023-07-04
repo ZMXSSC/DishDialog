@@ -7,8 +7,9 @@
 [![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)](https://react-bootstrap.netlify.app/)
 
-A full-stack web application built with MongoDB, Express.js, React, and Node.js (MERN) to allow people around the world 
-to share their recipe!
+A vibrant global culinary community, powered by a full-stack web application. Share, discover, and celebrate the love for cooking with people from all corners of the world!
+
+This project is built with MongoDB, Express.js, React, and Node.js (MERN stack), bringing to life a platform where you can share your recipes. You can also discover recipes from other users, and like them if you find them interesting.
 
 ## Prerequisites
 
@@ -37,16 +38,18 @@ To run the project, follow these steps:
 2. For the frontend:
     - Navigate to the frontend folder and run `npm start`.
 
+Now, you should be able to access the application locally!
 ## Contact
 
 If you want to contact me, you can reach me at `alozochu4@gmail.com`.
 
 ## Pending features
-1. Add a feature to allow users to like and comment on recipes.
-2. ..more to come!
+1. A feature that allows users to express their love for a recipe by "liking" it.
+2. Deploy the application to Heroku(or other platform).
+3. ...Stay tuned for more exciting features!
 
 ## License
 
 This project uses the following license: `MIT licensed`.
 
-
+Discover and spread the joy of cooking with DishDialog!
