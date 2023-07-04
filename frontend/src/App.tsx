@@ -38,13 +38,16 @@ function App() {
         fetchLoggedInUser();
         //the empty array as the second argument to useEffect means that the effect will only run once
     }, []);
+
     return (
         <BrowserRouter>
             <div>
                 <NavigationBar loggedInUser={loggedInUser}
                                onSignUpClicked={() => setShowSignUpModal(true)}
                                onLoginClicked={() => setShowLoginModal(true)}
-                               onLogoutSuccessful={() => setLoggedInUser(null)}
+                               onLogoutSuccessful={() => {
+                                   setLoggedInUser(null);
+                               }}
                 />
                 {/*container fluid is a bootstrap class that makes the container span the entire width of the page*/}
                 <Container fluid className={styles.pageContainer}>
@@ -55,15 +58,15 @@ function App() {
                         />
                         <Route
                             path='/community'
-                            element={<CommunityPage/>}
+                            element={<CommunityPage loggedInUser={loggedInUser}/>}
                         />
                         <Route
                             path='/discover'
-                            element={<DiscoverPage/>}
+                            element={<DiscoverPage loggedInUser={loggedInUser}/>}
                         />
                         <Route
                             path="/search"
-                            element={<SearchResultsPage/>}
+                            element={<SearchResultsPage loggedInUser={loggedInUser}/>}
                         />
                         <Route
                             path='/*'

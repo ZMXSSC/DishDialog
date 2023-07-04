@@ -5,9 +5,12 @@ import {Recipe} from "../../models/recipe";
 import PublicRecipe from "./PublicRecipe";
 import {Col, Container, Row, Spinner} from "react-bootstrap";
 import styles from "../../styles/RecipePage.module.css";
+import {User} from "../../models/user";
 
-
-const SearchPage = () => {
+interface SearchPageProps {
+    loggedInUser: User | null;
+}
+const SearchPage = ({loggedInUser} : SearchPageProps) => {
     //useLocation is a hook that returns the location object that represents the current URL
     //the location object contains information about the current URL, such as the path, search query, and hash
 
@@ -53,6 +56,7 @@ const SearchPage = () => {
             {recipes.map(recipe => (
                 <Col key={recipe._id}>
                     <PublicRecipe
+                        loggedInUser={loggedInUser}
                         recipe={recipe}
                         className={styles.recipe}
                     />

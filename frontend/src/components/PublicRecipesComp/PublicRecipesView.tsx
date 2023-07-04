@@ -4,9 +4,12 @@ import React, {useEffect, useState} from "react";
 import {Recipe as RecipeModel} from "../../models/recipe";
 import * as RecipesApi from "../../network/recipes_api";
 import PublicRecipe from "./PublicRecipe";
+import {User} from "../../models/user";
 
-
-const PublicRecipesView = () => {
+interface PublicRecipesViewProps {
+    loggedInUser: User | null;
+}
+const PublicRecipesView = ({loggedInUser} : PublicRecipesViewProps) => {
 
     //Recipe[] means an array of Recipe objects, Setting up state that's going to be an array of Recipe objects
     const [recipes, setRecipes] = useState<RecipeModel[]>([]);
@@ -54,6 +57,7 @@ const PublicRecipesView = () => {
                 // Col is used to add gap horizontally among recipes
                 <Col key={recipe._id}>
                     <PublicRecipe
+                        loggedInUser={loggedInUser}
                         recipe={recipe}
                         className={styles.recipe}
                     />

@@ -334,6 +334,10 @@ export const getRecipeImage: RequestHandler = async (req, res, next) => {
         if (!recipe) {
             throw createHttpError(404, "The recipe you are looking for doesn't exist");
         }
+        // Check if the recipe is public
+        if (!recipe.isPublic) {
+            throw createHttpError(401, "Unauthorized to view this recipe's image");
+        }
 
         // Check if the recipe has an associated image
         if (!recipe.imageName) {

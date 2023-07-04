@@ -7,13 +7,15 @@ import {useState} from "react";
 
 import RecipeNoImgDetailDialog from "../RecipeNoImgDetailedDialog";
 import RecipeImgDetailDialog from "../RecipeImgDetailedDialog";
+import {User} from "../../models/user";
 
 interface PublicRecipeProps {
+    loggedInUser: User | null,
     recipe: RecipeModel,
     className?: string,
 }
 
-const PublicRecipe = ({recipe, className}: PublicRecipeProps) => {
+const PublicRecipe = ({loggedInUser, recipe, className}: PublicRecipeProps) => {
 
     const [RecipeNoImgDetail, setRecipeNoImgDetail] = useState<RecipeModel | null>(null);
     const [RecipeImgDetail, setRecipeImgDetail] = useState<RecipeModel | null>(null);
@@ -91,6 +93,7 @@ const PublicRecipe = ({recipe, className}: PublicRecipeProps) => {
 
             {RecipeNoImgDetail &&
                 <RecipeNoImgDetailDialog
+                    loggedInUser={loggedInUser}
                     isPublic={true}
                     recipe={RecipeNoImgDetail}
                     onDismiss={() => setRecipeNoImgDetail(null)}
@@ -101,6 +104,7 @@ const PublicRecipe = ({recipe, className}: PublicRecipeProps) => {
 
             {RecipeImgDetail &&
                 <RecipeImgDetailDialog
+                    loggedInUser={loggedInUser}
                     isPublic={true}
                     recipe={RecipeImgDetail}
                     onDismiss={() => setRecipeImgDetail(null)}

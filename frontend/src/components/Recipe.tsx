@@ -12,7 +12,7 @@ import RecipeImgDetailDialog from "./RecipeImgDetailedDialog";
 import {User} from "../models/user";
 
 interface RecipeProps {
-    loggedInUser: User,
+    loggedInUser: User | null,
     recipe: RecipeModel,
     onRecipeClicked: (recipe: RecipeModel) => void,
     onDeleteRecipeClicked: (recipe: RecipeModel) => void,
@@ -46,7 +46,12 @@ const Recipe = ({loggedInUser, recipe, onRecipeClicked, onDeleteRecipeClicked, c
         createdUpdatedText = "Created: " + formatDate(createdAt);
     }
 
-    const imageUrl = `/api/recipes/${_id}/image/`;  // The URL to the image
+    const imageUrl = `/api/recipes/${_id}/image`;  // The URL to the image
+
+    const handleError = () => {
+        console.log('Image failed to load');
+        setHasImage(false);
+    };
 
     return (
         // This is a prop passed into the Recipe component, allowing whoever uses the Recipe component to optionally
@@ -55,8 +60,10 @@ const Recipe = ({loggedInUser, recipe, onRecipeClicked, onDeleteRecipeClicked, c
         <>
             {hasImage ? (
                 <Card className={`${styles.recipeCard} ${className}`} onClick={() => setRecipeImgDetail(recipe)}>
-                    <Card.Img variant="top" src={imageUrl} className={`${styles.imageStyle} ${imageUrl}`}
-                              onError={() => setHasImage(false)}/>
+                    <Card.Img variant="top"
+                              src={imageUrl}
+                              className={`${styles.imageStyle} ${imageUrl}`}
+                              onError={handleError}/>
                     <Card.Footer className="text-muted">
                         <div className={styles.titleBorder}>
                         <span className={styles.title}>

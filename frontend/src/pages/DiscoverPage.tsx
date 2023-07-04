@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
 import * as RecipesApi from "../network/recipes_api";
 import {Recipe} from "../models/recipe";
@@ -7,6 +7,7 @@ import foodImage from '../utils/food.png';
 import RecipeImgDetailedDialog from '../components/RecipeImgDetailedDialog'
 import RecipeNoImgDetailedDialog from '../components/RecipeNoImgDetailedDialog';
 import {formatDate} from "../utils/formatDate";
+import {User} from "../models/user";
 
 const foodIcon = L.icon({
     iconUrl: foodImage,
@@ -15,7 +16,11 @@ const foodIcon = L.icon({
     popupAnchor: [1, -34]
 });
 
-const DiscoverPage = () => {
+interface DiscoverPageProps {
+    loggedInUser: User | null
+}
+
+const DiscoverPage = ({loggedInUser}: DiscoverPageProps) => {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
 
@@ -27,7 +32,7 @@ const DiscoverPage = () => {
 
         loadRecipes();
     }, []);
- 
+
     const onPopupClick = (recipe: Recipe) => {
         setSelectedRecipe(recipe);
     };
@@ -60,6 +65,7 @@ const DiscoverPage = () => {
             </MapContainer>
             {selectedRecipe && selectedRecipe.hasImage ? (
                 <RecipeImgDetailedDialog
+                    loggedInUser={loggedInUser}
                     recipe={selectedRecipe}
                     onDismiss={onDismiss}
                     createdAtString={"Created: " + formatDate(selectedRecipe.createdAt)}
@@ -69,6 +75,7 @@ const DiscoverPage = () => {
             ) : (
                 selectedRecipe && (
                     <RecipeNoImgDetailedDialog
+                        loggedInUser={loggedInUser}
                         recipe={selectedRecipe}
                         onDismiss={onDismiss}
                         createdAtString={"Created: " + formatDate(selectedRecipe.createdAt)}

@@ -10,7 +10,7 @@ import Recipe from "./Recipe";
 import {User} from "../models/user";
 
 interface RecipesPageLoggedInViewProps {
-    loggedInUser: User;
+    loggedInUser: User | null;
 }
 
 const RecipesPageLoggedInView = ({loggedInUser}: RecipesPageLoggedInViewProps) => {

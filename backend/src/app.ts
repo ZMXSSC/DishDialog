@@ -48,6 +48,7 @@ app.use("/api/users", userRoutes);
 //If the user is authenticated, the middleware catches any requests that goes to /api/recipes endpoint,
 //If the user is not authenticated, the middleware will throw an error
 //For the specific endpoint, it will be forwarded to the recipesRoutes
+app.use("/api/recipes/:recipeId/image", RecipesController.getRecipeImage);
 app.use("/api/recipes", requiresAuth, recipesRoutes);
 app.use("/api/comments", commentsRoutes);
 

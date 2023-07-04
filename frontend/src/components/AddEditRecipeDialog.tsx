@@ -9,7 +9,7 @@ import {useEffect, useState} from "react";
 import {User} from "../models/user";
 
 interface AddEditRecipeDialogProps {
-    loggedInUser?: User,
+    loggedInUser?: User | null,
     recipeToEdit?: Recipe,
     onDismiss: () => void,
     onRecipeSaved: (recipe: Recipe) => void

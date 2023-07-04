@@ -10,7 +10,7 @@ import {CommentInput, createComment} from "../network/recipes_api";
 import {User} from "../models/user";
 
 interface RecipeDetailDialogProps {
-    loggedInUser?: User,
+    loggedInUser?: User | null,
     recipe: RecipeModel,
     onDismiss: () => void,
     onEdit?: () => void,
@@ -27,7 +27,7 @@ const RecipeImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
                                                                       onEdit,
                                                                       onDelete,
                                                                       createdAtString, updatedAtString, isPublic
-                                                                  }) => {
+                                                                  }: RecipeDetailDialogProps) => {
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
     const [commentSubmitted, setCommentSubmitted] = useState(false);
@@ -74,23 +74,30 @@ const RecipeImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
                                 <div style={{fontSize: '25px'}}>{recipe.text}</div>
                             </Col>
                             <Col md={2}>
-                                <Row md={10} className={styles.commentSectionRow}>
+                                <Row md={11} className={styles.commentSectionRow}>
                                     <div className={styles.commentSectionContainer}>
-                                        <CommentSection key={commentSubmitted.toString()} recipeId={recipe._id} />
+                                        <CommentSection key={commentSubmitted.toString()} recipeId={recipe._id}/>
                                     </div>
                                 </Row>
-                                <Row md={2}>
-                                    <Form onSubmit={handleSubmit(onSubmit)}>
-                                        <TextInputField
-                                            name="text"
-                                            label="Add a comment"
-                                            register={register}
-                                            registerOptions={{required: 'Comment is required.'}}
-                                            error={errors.text}
-                                        />
-                                        <Button variant="primary" type="submit">Submit Comment</Button>
-                                    </Form>
+                                <Row md={1}>
+                                    {loggedInUser ? (
+                                        <Form onSubmit={handleSubmit(onSubmit)}>
+                                            <TextInputField
+                                                name="text"
+                                                label="Add your comment!"
+                                                register={register}
+                                                registerOptions={{required: 'Comment is required.'}}
+                                                error={errors.text}
+                                            />
+                                            <Button variant="primary" type="submit">Submit</Button>
+                                        </Form>
+                                    ) : (
+                                        <p style={{fontSize: '20px', color: 'red'}}>
+                                            Please log in to write your comment.
+                                        </p>
+                                    )}
                                 </Row>
+
                             </Col>
                         </Row>
                     </Container>

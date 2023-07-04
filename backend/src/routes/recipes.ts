@@ -31,7 +31,7 @@ router.patch("/:recipeId", upload, RecipesController.updateRecipe);
 //delete request
 router.delete("/:recipeId", RecipesController.deleteRecipe);
 
-router.get('/:recipeId/image', RecipesController.getRecipeImage);
+// router.get('/:recipeId/image', RecipesController.getRecipeImage);
 
 
 export default router;
