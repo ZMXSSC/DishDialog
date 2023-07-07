@@ -42,7 +42,7 @@ const CommentSection = ({recipeId}: CommentSectionProps) => {
                 <>
                     {comments.length > 0 ? (
                         comments.map((comment) => (
-                            <div key={comment._id}>
+                            <div className={styles.commentContainer} key={comment._id}>
                                 <h2 className={styles.username}>{comment.user.username}:</h2>
                                 <p className={styles.comment}>{comment.text}</p>
                                 <p className={`${styles.createdAt} createdAt`}>Created

@@ -73,7 +73,7 @@ const RecipeImgDetailDialog: React.FC<RecipeDetailDialogProps> = ({
                             <Col className={styles.textBody} md={4}>
                                 <div style={{fontSize: '25px'}}>{recipe.text}</div>
                             </Col>
-                            <Col md={2}>
+                            <Col md={3}>
                                 <Row md={11} className={styles.commentSectionRow}>
                                     <div className={styles.commentSectionContainer}>
                                         <CommentSection key={commentSubmitted.toString()} recipeId={recipe._id}/>

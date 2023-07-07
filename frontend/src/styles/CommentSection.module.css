@@ -14,7 +14,17 @@ font-size: 19px;
     font-weight: bold;
     color: #481717;
 }
-.comment{
+.comment {
     font-size: 17px;
     color: #000000;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.commentContainer {
+    max-width: 100%;
+    overflow-x: hidden;  /* Prevents horizontal scrolling */
+    overflow-y: auto;  /* Adds vertical scrollbar if needed */
 }
