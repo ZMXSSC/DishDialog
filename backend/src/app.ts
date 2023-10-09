@@ -19,6 +19,7 @@ app.use(morgan("dev"));
 
 //We can get JSON from GET or send JSON from POST
 //We need this line in order to have req.body... to work
+//This will configure express to parse and handle JSON requests.
 app.use(express.json());
 
 //Express session middleware is used to manage sessions in the app,

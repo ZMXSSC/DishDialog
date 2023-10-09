@@ -12,7 +12,7 @@ import {GridFSBucket} from 'mongodb';
 import {getDbConnection} from '../server';
 
 //To create endpoints, the best practice is to define the callback functions first in recipescontroller.ts
-//With the callback function, we can export it and use HTTP verb(GET, POST...) in recipes.ts with path that acts as router
+//With the callback function, we can export it and use HTTP request(GET, POST...) in recipes.ts with path that acts as router
 //At last, in app.ts we use app.use() to utilize the router
 
 //This would call a modular structure
