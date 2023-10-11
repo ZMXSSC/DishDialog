@@ -9,6 +9,8 @@
 
 A vibrant global culinary community, powered by a full-stack web application. Share, discover, and celebrate the love for cooking with people from all corners of the world!
 
+Experience the joy of cooking on [DishDialog](https://www.dishdialog.online)!
+
 This project is built with MongoDB, Express.js, React, and Node.js (MERN stack), bringing to life a platform where you can share your recipes. You can also discover recipes from other users, and like them if you find them interesting.
 
 ## Prerequisites
@@ -39,6 +41,7 @@ To run the project, follow these steps:
     - Navigate to the frontend folder and run `npm start`.
 
 Now, you should be able to access the application locally!
+
 ## Contact
 
 If you want to contact me, you can reach me at `alozochu4@gmail.com`.
