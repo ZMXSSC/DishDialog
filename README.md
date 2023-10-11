@@ -48,8 +48,7 @@ If you want to contact me, you can reach me at `alozochu4@gmail.com`.
 
 ## Pending features
 1. A feature that allows users to express their love for a recipe by "liking" it.
-2. Deploy the application to Heroku(or other platform).
-3. ...Stay tuned for more exciting features!
+2. ...Stay tuned for more exciting features!
 
 ## License
 
