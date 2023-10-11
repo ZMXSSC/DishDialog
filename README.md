@@ -19,6 +19,7 @@ Before you begin, ensure you have met the following requirements:
 
 - You have installed the latest version of [Node.js and npm](https://nodejs.org/en/download/)
 - You have a Windows/Mac/Linux machine.
+- You must provide your own **MongoDB URI** and **Session Secret** for backend configuration.
 
 ## Installing the project
 
